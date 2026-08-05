@@ -1,0 +1,20 @@
+
+#
+# Note that this file *ONLY* includes comments and a single variable SOURCES, which is an
+# array of filenames that works in both Ruby and Python (at least 3.14).  Both build.rb
+# and build.py source it to know which list of files to build into a single PDF.
+#
+
+# This specifies the 'core' of the generated output PDF filename.  Keep in mind that this will be uploaded to
+# staff who will end up will hundreds of application PDFs and it would be nice to make their lives easier so
+# that when they look at them, they don't have to open and scroll through all of those applications.  I suggest
+# including your NAME and STUDENTID in the filename.  The total file name will have a date stamp which alpha
+# sorts correctly prepended and a suffix which is .XX.pdf, where XX is py or rb.
+OUTPUT_CORE_FILENAME="application-NAME-STUDENTID"
+
+# Order matters!
+SOURCES = [
+]
+
+# NOTE: These need to be in the last 5 lines of the file (if modelines=5).  Leave them here, it makes syntax highlighting work.
+# vi: set ft=python ts=2:
