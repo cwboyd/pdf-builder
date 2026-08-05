@@ -1,10 +1,16 @@
 # Default is to not track ...
 *
 
+# Allow sources and output subdir, but just to add .keep files
+!/output
+!/sources
+
 # But, these are the files which actually get tracked.
 !/.gitignore
 !/fingerprint.bat
 !/fingerprint.sh
+!/output/.keep
+!/sources/.keep
 !/LICENSE
 !/MD5SUM.txt
 !/README.md
