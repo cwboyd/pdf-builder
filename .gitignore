@@ -9,6 +9,8 @@
 
 # But, these are the files which actually get tracked.
 !/.gitignore
+!/build.py
+!/build.rb
 !/fingerprint.bat
 !/fingerprint.sh
 !/LICENSE
