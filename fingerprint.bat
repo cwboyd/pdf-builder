@@ -1,7 +1,5 @@
 SETLOCAL ENABLEEXTENSIONS
 
-REM cat MD5SUM.txt | ruby -pe "$_.gsub!(/^(\S+) \*(.*)$/, '\2 * \1')" | sort | ruby -pe "$_.gsub!(/^(.*) \* (\S+)$/, '\2 * \1')"
-
 :: This Ruby scriptlet swaps before and after the DELIM of ' * '.
 SET __SWAP_COLS=ruby -ne "puts $_.strip.split(/\s*\*\s*/).reverse.join(' * ')"
 
