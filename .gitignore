@@ -11,6 +11,8 @@
 !/.gitignore
 !/build.py
 !/build.rb
+!/duplicateChecker.rb
+!/find.exe
 !/fingerprint.bat
 !/fingerprint.sh
 !/force_no_push.bat
