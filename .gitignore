@@ -27,4 +27,5 @@
 !/sources/.keep
 !/transfer.bat
 !/workspace.code-workspace
-
+!_excluded/
+!_excluded/.keep
