@@ -6,7 +6,7 @@ SET __SWAP_COLS=ruby -ne "puts $_.strip.split(/\s*\*\s*/).reverse.join(' * ')"
 :: This is the query we pass to findutils find ... it ignores .git and the various generated HASHSUM.txt files.
 :: Fingerprinting the file we store fingerprints end would defeat the purpose of generating fingerprints to detect changes,
 :: because they'd always change!
-SET __FIND_QUERY=^\( -path "./.git" ^\) -prune -o -type f ! ^\( -iname "md5sum*.txt" -o -iname "sha1sum*.txt" -o -iname "sha256sum*.txt" ^\)
+SET __FIND_QUERY=^\( -path "./.git" -o -path "./\$RECYCLE.BIN" ^\) -prune -o -type f ! ^\( -iname "md5sum*.txt" -o -iname "sha1sum*.txt" -o -iname "sha256sum*.txt" ^\)
 
 :: When we output, we'd like deterministic ordering based on the sorted filename.  But the various HASHSUM commands produce
 :: 'HASH * PATH'.  To achieve this, we temporarily swap with DELIM, giving us 'PATH * HASH', then we pass the output
