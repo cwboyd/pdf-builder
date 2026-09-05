@@ -1,8 +1,10 @@
-03d85af7074eacbed0c1793a4a026111 * ./.gitignore
+02612b5777bcc84657a8da2d8bc3401e * ./.gitignore
+d41d8cd98f00b204e9800998ecf8427e * ./_excluded/.keep
 54cf994df419ccb7f006f509a0c77bc9 * ./build.py
 a30aad92947e8ca6ed5128fde72b587d * ./build.rb
+fd53c093adb094314b4238c404c491cb * ./duplicateChecker.rb
 e0a61c0bc6c190d1a60919ea2aaf20c4 * ./find.exe
-f3732506d92dfa2f26ac8c9559874748 * ./fingerprint.bat
+c486c8ba2f997ee77e28607de1bdba78 * ./fingerprint.bat
 dcd0b3cf70407237f926ccd0a9ac67a2 * ./fingerprint.sh
 ebb80d149a270c6b2568ece1a52bd5a6 * ./force_no_push.bat
 e62637ea8a114355b985fd86c9ffbd6e * ./LICENSE
