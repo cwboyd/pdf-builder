@@ -1,7 +1,15 @@
-1ebbd3e34237af26da5dc08a4e440464 ./LICENSE
-212b771445d171c24333b5f7fe2695fb ./fingerprint.sh
-25bf50b0ec79d01de8b83b7b5801b4ac ./workspace.code-workspace
-46f5c7845ac9715175714e2544505cb6 ./README.md
-67317cff900e0336e8930ee652f3c60e ./.gitignore
-e02d1c623b83e77248ef35eb81d1316b ./fingerprint.bat
-e573c2011b6fa4ad03e20f33b51b0a80 ./transfer.bat
+03d85af7074eacbed0c1793a4a026111 * ./.gitignore
+54cf994df419ccb7f006f509a0c77bc9 * ./build.py
+a30aad92947e8ca6ed5128fde72b587d * ./build.rb
+e0a61c0bc6c190d1a60919ea2aaf20c4 * ./find.exe
+f3732506d92dfa2f26ac8c9559874748 * ./fingerprint.bat
+dcd0b3cf70407237f926ccd0a9ac67a2 * ./fingerprint.sh
+ebb80d149a270c6b2568ece1a52bd5a6 * ./force_no_push.bat
+e62637ea8a114355b985fd86c9ffbd6e * ./LICENSE
+d41d8cd98f00b204e9800998ecf8427e * ./output/.keep
+ff2024cd107f0bedc392a8dc7d34fb30 * ./README.md
+bdc79ddde87fdadc2dfb2ee9cf2bb1e2 * ./requirements.txt
+ce4251fa583b4bc3908604a31e57e9ad * ./sources.txt
+d41d8cd98f00b204e9800998ecf8427e * ./sources/.keep
+ba5ae85c76660cd3fd8bbcb71445f56b * ./transfer.bat
+28e6c7462fb8ab91cc2dde6256ae17be * ./workspace.code-workspace
