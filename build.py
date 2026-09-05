@@ -1,7 +1,8 @@
 from datetime import datetime
 import importlib.machinery
 import importlib.util
-import pymupdf  # Replaced pypdf with pymupdf
+import os
+import pymupdf  # PyMuPDF handles both PDFs and Images natively
 
 SOURCES_TXT = "./sources.txt"
 MODULE_NAME = "sources" # module namespace to import array into.
@@ -31,7 +32,7 @@ if not hasattr(sources, "OUTPUT_CORE_FILENAME"):
         "Remedy: Please set this variable to your target output name (e.g., 'application-NAME-STUDENTID')."
     )
 
-print(f"sources.OUTPUT_CORE_FILENAME = {sources.OUTPUT_CORE_FILENAME}")
+print(f"sources.OUTPUT_CORE_FILENAME = {sources.OUTPUT_CORE_FILENAME}");
 
 # Check and enforce SOURCES existence
 if not hasattr(sources, "SOURCES"):
@@ -67,10 +68,32 @@ if not all(isinstance(item, str) for item in sources.SOURCES):
 merger = pymupdf.open()
 
 for file in sources.SOURCES:
-    print(f"Adding file '{file}' ...")
-    # Open each source document and append its entire page range to the container
-    with pymupdf.open(file) as src_doc:
-        merger.insert_pdf(src_doc)
+    # Get the file extension in lowercase
+    _, ext = os.path.splitext(file.lower())
+
+    # 1. If it's a PDF, merge it normally
+    if ext == ".pdf":
+        print(f"Adding PDF file '{file}' ...")
+        with pymupdf.open(file) as src_doc:
+            merger.insert_pdf(src_doc)
+
+    # 2. If it's an image, create a page and insert it
+    elif ext in [".png", ".jpg", ".jpeg", ".bmp", ".gif"]:
+        print(f"Converting and adding image '{file}' ...")
+
+        # Open the image file using PyMuPDF
+        img_doc = pymupdf.open(file)
+
+        # Convert the image into a temporary single-page PDF byte stream
+        img_pdf_bytes = img_doc.convert_to_pdf()
+
+        # Load those bytes as a PDF document object
+        with pymupdf.open("pdf", img_pdf_bytes) as img_pdf:
+            merger.insert_pdf(img_pdf)
+
+    # 3. Fallback for unsupported formats
+    else:
+        raise(f"Error: Skipping '{file}'. Unsupported file format.")
 
 # Calculate a name
 current_datestamp = datetime.now().strftime("%Y-%m-%d")
