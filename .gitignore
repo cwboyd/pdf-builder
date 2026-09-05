@@ -16,6 +16,7 @@
 !/fingerprint.bat
 !/fingerprint.sh
 !/force_no_push.bat
+!/Gemfile
 !/LICENSE
 !/MD5SUM.txt
 !/output/.keep
