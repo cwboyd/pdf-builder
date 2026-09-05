@@ -1,8 +1,7 @@
-
-from pypdf import PdfWriter
 from datetime import datetime
 import importlib.machinery
 import importlib.util
+import pymupdf  # Replaced pypdf with pymupdf
 
 SOURCES_TXT = "./sources.txt"
 MODULE_NAME = "sources" # module namespace to import array into.
@@ -32,7 +31,7 @@ if not hasattr(sources, "OUTPUT_CORE_FILENAME"):
         "Remedy: Please set this variable to your target output name (e.g., 'application-NAME-STUDENTID')."
     )
 
-print(f"sources.OUTPUT_CORE_FILENAME = {sources.OUTPUT_CORE_FILENAME}");
+print(f"sources.OUTPUT_CORE_FILENAME = {sources.OUTPUT_CORE_FILENAME}")
 
 # Check and enforce SOURCES existence
 if not hasattr(sources, "SOURCES"):
@@ -64,11 +63,14 @@ if not all(isinstance(item, str) for item in sources.SOURCES):
 # Main body of script
 #
 
-merger = PdfWriter()
+# Create an empty document acting as our merger container
+merger = pymupdf.open()
 
 for file in sources.SOURCES:
     print(f"Adding file '{file}' ...")
-    merger.append(file)
+    # Open each source document and append its entire page range to the container
+    with pymupdf.open(file) as src_doc:
+        merger.insert_pdf(src_doc)
 
 # Calculate a name
 current_datestamp = datetime.now().strftime("%Y-%m-%d")
@@ -76,6 +78,6 @@ outfilename = "./output/" + current_datestamp + "-" + sources.OUTPUT_CORE_FILENA
 
 # Rewrite the output of a single merged file.
 print(f"Saving to out file '{outfilename}'.")
-merger.write(outfilename)
+merger.save(outfilename)
 merger.close()
 
