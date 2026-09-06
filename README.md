@@ -8,8 +8,8 @@ There are 2 scripts that facilitate this:
 
 # build.py
 
-    python -r requirements.txt
-    python build.py
+    pip3 install -r requirements.txt
+    python3 build.py
 
 # build.rb
 
