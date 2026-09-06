@@ -1,4 +1,32 @@
 
+This project is used to build a composite-PDF from a set of sources PDFs.
+
+The output will be a single PDF file saved in the ./output directory with a date-stamped format of YYYY-MM-DD-filename.pdf
+based on the current date.
+
+There are 2 scripts that facilitate this:
+
+# build.py
+
+    python -r requirements.txt
+    python build.py
+
+# build.rb
+
+    bundle install
+    bundle exec ruby build.rb
+
+
+# sources.mak
+
+This file contains data structures using subset of Ruby and Python that is compatible and eval'd into the respective
+scripts.  Edit this file to change the sources and output.  The file contains comments documenting how this works.
+
+# Also note: windows-transfer-scripts
+
+This project contains portions of https://github.com/cwboyd/windows-transfer-scripts to facility fingerprinting and
+archiving of sources and generated output, and copies over from that README:
+
 These are simple batch files used with git and robocopy
 to detect bit rot (and changes) plus keep a target updated.  This __does not__
 stick the files in the git repo, since that would double storage.  It does
@@ -14,16 +42,19 @@ have to edit this batch file to change \_\_TARGET.
 
 ## How do I get started?
 
-Clone this repo into an empty directory - via `git clone https://github.com/cwboyd/windows-transfer-scripts` and then copy the files you want to track over it.
+1. Clone this repo into an empty directory - via `git clone https://github.com/cwboyd/pdf-builder`.
 
-You will need a Unix-like `find` like the one from GNU binutils, as the find.exe which ships with Windows-like OSes is not useful (for our purposes).  It will need to be in your path.  The `fingerprint.bat` relies on this.
+2. Run 'force_no_push.bat' so that you don't accidentally push your private docs to a public repo!
 
-You will also need a somewhat modern Ruby in your path ... Ruby 2.5.7 has been tested to work.
+3. Copy your source documents into ./sources
 
-## How do I verify that files have not changed?
+4. Edit source.txt to include then in the SOURCES array, in whatever order you wish.
 
-You can simply run `fingerprint.bat` and then `git diff`.  If there are no changes, then you should not see any changes to `MD5SUM.txt` or `SHA1SUM.txt`.  If there are changes in hash values, something has changed in the file - corruption, edits, etc.
+5. Update OUTPUT_CORE_FILENAME to be the stem filename you want.
 
-## How do I verify the tranferred files?
+Then run whichever build.py / build.rb script you wish.  Your output should be in a file with a name
+like:
 
-Running `transfer.bat` should update the .git subdirectory in the transfer target.  You can then run `fingerprint.bat` within the target directory.  After this, run `git diff` - you should not see any changes to `MD5SUM.txt` or `SHA1SUM.txt`.
+    ./output/YYYY-MM-DD-${OUTPUT_CORE_FILENAME}.pdf
+
+
