@@ -1,8 +1,8 @@
-
-from pypdf import PdfWriter
 from datetime import datetime
 import importlib.machinery
 import importlib.util
+import os
+import pymupdf  # PyMuPDF handles both PDFs and Images natively
 
 SOURCES_TXT = "./sources.txt"
 MODULE_NAME = "sources" # module namespace to import array into.
@@ -64,11 +64,36 @@ if not all(isinstance(item, str) for item in sources.SOURCES):
 # Main body of script
 #
 
-merger = PdfWriter()
+# Create an empty document acting as our merger container
+merger = pymupdf.open()
 
 for file in sources.SOURCES:
-    print(f"Adding file '{file}' ...")
-    merger.append(file)
+    # Get the file extension in lowercase
+    _, ext = os.path.splitext(file.lower())
+
+    # 1. If it's a PDF, merge it normally
+    if ext == ".pdf":
+        print(f"Adding PDF file '{file}' ...")
+        with pymupdf.open(file) as src_doc:
+            merger.insert_pdf(src_doc)
+
+    # 2. If it's an image, create a page and insert it
+    elif ext in [".png", ".jpg", ".jpeg", ".bmp", ".gif"]:
+        print(f"Converting and adding image '{file}' ...")
+
+        # Open the image file using PyMuPDF
+        img_doc = pymupdf.open(file)
+
+        # Convert the image into a temporary single-page PDF byte stream
+        img_pdf_bytes = img_doc.convert_to_pdf()
+
+        # Load those bytes as a PDF document object
+        with pymupdf.open("pdf", img_pdf_bytes) as img_pdf:
+            merger.insert_pdf(img_pdf)
+
+    # 3. Fallback for unsupported formats
+    else:
+        raise(f"Error: Skipping '{file}'. Unsupported file format.")
 
 # Calculate a name
 current_datestamp = datetime.now().strftime("%Y-%m-%d")
@@ -76,6 +101,6 @@ outfilename = "./output/" + current_datestamp + "-" + sources.OUTPUT_CORE_FILENA
 
 # Rewrite the output of a single merged file.
 print(f"Saving to out file '{outfilename}'.")
-merger.write(outfilename)
+merger.save(outfilename)
 merger.close()
 
